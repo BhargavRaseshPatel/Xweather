@@ -46,28 +46,30 @@ function App() {
       </div>
 
       {data.temperature ? <div style={{ display: "flex", marginTop: '24px' }}>
-        <div className="card">
+        <div className="weather-cards">
           <p>Temperature</p>
           <p>{data.temperature}</p>
         </div>
 
-        <div className="card">
+        <div className="weather-cards">
           <p>Humidity</p>
           <p>{data.humidity}</p>
         </div>
 
-        <div className="card">
+        <div className="weather-cards">
           <p>Condition</p>
           <p>{data.condition}</p>
         </div>
 
-        <div className="card">
+        <div className="weather-cards">
           <p>Wind Speed</p>
           <p>{data.windspeed}</p>
         </div>
       </div> : loading &&
       <div>
-        Loading data...
+        <p>
+          Loading data...
+        </p>
       </div>
 
       }
