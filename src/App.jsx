@@ -12,31 +12,36 @@ function App() {
   })
 
   const search = () => {
-    setLoading(true)
-    fetch(`http://api.weatherapi.com/v1/current.json?key=6849b192d62f444b94b90256251809&q=${location}&aqi=yes`)
-      .then((data) => data.json()).then((data) => {
-        console.log(data);
-        if (data.error) {
-          return alert("Failed to fetch weather data")
-        }
-        setData({
-          temperature: data?.current?.temp_c + "C",
-          humidity: data?.current?.humidity + "%",
-          condition: data?.current?.condition?.text,
-          windspeed: data?.current?.wind_kph + " kph"
-        })
-      }).catch((error) => {
-        console.error(error.message)
-        setData({
-          temperature: "",
-          humidity: "",
-          condition: "",
-          windspeed: ""
-        })
-      });
-    setLoading(false)
-    // console.log(fullData)
-  }
+  setLoading(true)
+  fetch(`http://api.weatherapi.com/v1/current.json?key=6849b192d62f444b94b90256251809&q=${location}&aqi=yes`)
+    .then((data) => data.json())
+    .then((data) => {
+      console.log(data);
+      if (data.error) {
+        alert("Failed to fetch weather data")
+        setLoading(false); // <-- move here
+        return;
+      }
+      setData({
+        temperature: data?.current?.temp_c + "C",
+        humidity: data?.current?.humidity + "%",
+        condition: data?.current?.condition?.text,
+        windspeed: data?.current?.wind_kph + " kph"
+      })
+      setLoading(false); // <-- move here
+    })
+    .catch((error) => {
+      console.error(error.message)
+      setData({
+        temperature: "",
+        humidity: "",
+        condition: "",
+        windspeed: ""
+      })
+      setLoading(false); // <-- move here
+    });
+}
+
 
   return (
     <div style={{ backgroundColor: '', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -45,23 +50,23 @@ function App() {
         <button onClick={search} style={{ backgroundColor: 'green', border: '0px', color: 'white', borderRadius: '8px', padding: '18px', display: 'flex', alignItems: 'center' }}>Search</button>
       </div>
 
-      {data.temperature ? <div style={{ display: "flex", marginTop: '24px' }}>
-        <div className="weather-cards">
+      {data.temperature ? <div style={{ display: "flex", marginTop: '24px' }} className='weather-cards'>
+        <div className="weather-card">
           <p>Temperature</p>
           <p>{data.temperature}</p>
         </div>
 
-        <div className="weather-cards">
+        <div className="weather-card">
           <p>Humidity</p>
           <p>{data.humidity}</p>
         </div>
 
-        <div className="weather-cards">
+        <div className="weather-card">
           <p>Condition</p>
           <p>{data.condition}</p>
         </div>
 
-        <div className="weather-cards">
+        <div className="weather-card">
           <p>Wind Speed</p>
           <p>{data.windspeed}</p>
         </div>
