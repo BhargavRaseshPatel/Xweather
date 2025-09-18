@@ -1,0 +1,10 @@
+.card {
+  flex: 1;           /* Each card takes equal space */
+  min-width: 200px;  /* optional: prevent too small cards on small screens */
+  height: 100px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  padding: 8px;
+  margin: 4px;
+  text-align: center;
+}
