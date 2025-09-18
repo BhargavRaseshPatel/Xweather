@@ -13,13 +13,13 @@ function App() {
 
   const search = () => {
   setLoading(true)
-  fetch(`http://api.weatherapi.com/v1/current.json?key=6849b192d62f444b94b90256251809&q=${location}&aqi=yes`)
+  fetch(`https://api.weatherapi.com/v1/current.json?key=6849b192d62f444b94b90256251809&q=${location}&aqi=yes`)
     .then((data) => data.json())
     .then((data) => {
       console.log(data);
       if (data.error) {
         alert("Failed to fetch weather data")
-        setLoading(false); // <-- move here
+        setLoading(false); 
         return;
       }
       setData({
@@ -28,7 +28,7 @@ function App() {
         condition: data?.current?.condition?.text,
         windspeed: data?.current?.wind_kph + " kph"
       })
-      setLoading(false); // <-- move here
+      setLoading(false);
     })
     .catch((error) => {
       console.error(error.message)
@@ -38,7 +38,7 @@ function App() {
         condition: "",
         windspeed: ""
       })
-      setLoading(false); // <-- move here
+      setLoading(false);
     });
 }
 
